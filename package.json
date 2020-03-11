@@ -1,0 +1,15 @@
+{
+  "name": "@fastfeet/fullstack",
+  "version": "1.0.0",
+  "author": "Vinicius Sales <vinicius.2010.s@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "dev:server": "yarn workspace @fastfeet/server dev"
+  }
+}
