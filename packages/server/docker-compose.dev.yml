@@ -2,12 +2,15 @@ version: '3'
 
 services:
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: dev.Dockerfile
     command: yarn dev
     ports:
       - '3000:3000'
     volumes:
-      - '.:/usr/app'
+      - './:/usr/src/app'
+      - '/usr/src/app/node_modules'
     depends_on:
       - 'postgres'
 
@@ -16,6 +19,8 @@ services:
     ports:
       - '5432:5432'
     restart: unless-stopped
+    logging:
+      driver: none
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-fastfeet}
