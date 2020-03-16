@@ -1,11 +1,4 @@
-import express, { Request, Response } from 'express';
-import 'dotenv/config';
-const app = express();
-
-app.get('/', (req: Request, res: Response) => {
-  console.log(process.env.DB_HOST);
-  res.send('Hello World!');
-});
+import app from './app';
 
 const port = process.env.PORT || 3000;
 

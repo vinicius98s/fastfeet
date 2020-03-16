@@ -12,5 +12,5 @@
     "noImplicitAny": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "src/database/seeds"]
+  "exclude": ["node_modules", "src/database/seeds", "src/database/migrations"]
 }
