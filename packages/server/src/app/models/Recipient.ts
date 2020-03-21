@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-import sequelize from '../../database';
+import sequelize from '@database';
 
 class Recipient extends Model {
   public id!: number;
