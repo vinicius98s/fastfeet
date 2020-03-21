@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
-import User from '../models/User';
-import { Errors } from '../Types';
-
-import { secret, expiresIn } from '../../config/auth';
+import User from '@models/User';
+import { Errors } from '@types';
+import { secret, expiresIn } from '@config/auth';
 
 const store = async (req: Request, res: Response): Promise<Response> => {
   try {

@@ -9,8 +9,26 @@
     "noImplicitReturns": true,
     "noUnusedParameters": false,
     "noUnusedLocals": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "baseUrl": "src",
+    "paths": {
+      "@models/*": ["app/models/*"],
+      "@controllers/*": ["app/controllers/*"],
+      "@types": ["app/types"],
+      "@config/*": ["config/*"],
+      "@database/*": ["database/*"],
+      "@database": ["database/index"],
+      "@routes": ["routes"],
+      "@server": ["server"],
+      "@app": ["app"],
+      "@tests/*": ["__tests__/*"]
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "src/database/seeds", "src/database/migrations"]
+  "exclude": [
+    "node_modules",
+    "src/__tests__",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ]
 }

@@ -8,7 +8,7 @@
     "prettier"
   ],
   "rules": {
-    "import/extensions": "off"
+    "import/extensions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "quotes": ["error", "single"],
     "class-methods-use-this": "off",

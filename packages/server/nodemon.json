@@ -1,7 +1,8 @@
 {
   "watch": ["src"],
   "ext": "ts",
+  "ignore": ["*.spec.ts", "*.test.ts"],
   "execMap": {
-    "ts": "sucrase-node src/server.ts"
+    "ts": "ts-node -r tsconfig-paths/register src/server.ts"
   }
 }
