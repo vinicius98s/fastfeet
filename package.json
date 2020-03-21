@@ -10,6 +10,7 @@
     ]
   },
   "scripts": {
+    "db:up": "yarn workspace @fastfeet/server db:up",
     "dev:server": "yarn workspace @fastfeet/server dev",
     "build:server": "yarn workspace @fastfeet/server build"
   }

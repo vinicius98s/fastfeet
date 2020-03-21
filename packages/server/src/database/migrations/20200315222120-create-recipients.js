@@ -1,45 +1,27 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('recipients', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
+    return queryInterface.createTable(
+      'recipients',
+      {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+        },
+        street: { allowNull: false, type: Sequelize.STRING },
+        number: { allowNull: false, type: Sequelize.STRING },
+        complement: Sequelize.STRING,
+        city: { allowNull: false, type: Sequelize.STRING },
+        state: { allowNull: false, type: Sequelize.STRING },
+        zip_code: { allowNull: false, type: Sequelize.STRING },
+        createdAt: { type: Sequelize.DATE, field: 'created_at' },
+        updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
       },
-      street: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      number: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      complement: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
-      city: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      state: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      zip_code: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-    });
+      {
+        timestamps: true,
+      }
+    );
   },
 
   down: queryInterface => {
