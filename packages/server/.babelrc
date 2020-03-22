@@ -1,0 +1,33 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ],
+    "@babel/typescript"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-async-to-generator",
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "@models": "./src/app/models",
+          "@controllers": "./src/app/controllers",
+          "@types": "./src/app/types",
+          "@config": "./src/config",
+          "@database": "./src/database",
+          "@routes": "./src/routes",
+          "@server": "./src/server",
+          "@app": "./src/app",
+          "@tests": "./src/__tests__"
+        }
+      }
+    ]
+  ]
+}

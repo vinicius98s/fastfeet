@@ -7,7 +7,7 @@
     "serve": "node ./dist/server.js",
     "dev:docker": "docker-compose -f docker-compose.dev.yml up",
     "dev": "nodemon src/server.ts",
-    "build": "tsc",
+    "build": "babel src --out-dir dist --extensions .ts,.js",
     "db:create": "sequelize db:create",
     "db:migrate": "sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",
@@ -27,6 +27,12 @@
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-async-to-generator": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-typescript": "^7.9.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.30",
     "@types/express": "^4.17.3",
@@ -36,6 +42,8 @@
     "@types/validator": "^12.0.1",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.10.0",
@@ -48,7 +56,6 @@
     "supertest": "^4.0.2",
     "ts-jest": "^25.2.1",
     "ts-node": "^8.7.0",
-    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.8.3"
   }
 }
