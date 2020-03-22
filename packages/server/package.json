@@ -8,14 +8,13 @@
     "dev:docker": "docker-compose -f docker-compose.dev.yml up",
     "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "db:create": "createdb fastfeet --user=postgres",
-    "db:migrate": "yarn sequelize db:migrate",
-    "db:seed": "yarn sequelize db:seed:all",
+    "db:create": "sequelize db:create",
+    "db:migrate": "sequelize db:migrate",
+    "db:seed": "sequelize db:seed:all",
     "db:up": "yarn db:create && yarn db:migrate && yarn db:seed",
-    "test": "NODE_ENV=test jest",
-    "test:watch": "NODE_ENV=test yarn pretest && jest --watch",
-    "pretest": "NODE_ENV=test sequelize db:migrate",
-    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
+    "test": "NODE_ENV=test sequelize db:migrate && jest --runInBand ; yarn clear:testdb",
+    "test:watch": "NODE_ENV=test sequelize db:migrate && jest --runInBand --watch ; yarn clear:testdb",
+    "clear:testdb": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

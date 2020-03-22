@@ -1,5 +1,4 @@
 module.exports = {
-  bail: true,
   roots: ['<rootDir>/src'],
   moduleFileExtensions: ['ts', 'js'],
   moduleDirectories: ['node_modules', '<rootDir>/src'],
