@@ -2,6 +2,16 @@ import Sequelize, { Model } from 'sequelize';
 
 import sequelize from '@database';
 
+export interface IRecipient {
+  name: string;
+  street: string;
+  number: number;
+  complement?: string | null;
+  city: string;
+  zip_code: string;
+  state: string;
+}
+
 class Recipient extends Model {
   public id!: number;
   public name!: string;

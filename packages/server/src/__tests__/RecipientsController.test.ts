@@ -2,13 +2,14 @@ import request from 'supertest';
 
 import app from '@app';
 
+import { IRecipient } from '@models/Recipient';
 import truncate from '@tests/utils/truncate';
 import createAdminUser from '@tests/helpers/createAdminUser';
 import { Errors } from '@types';
 
 describe('Recipients', () => {
   const { createUser, email, password } = createAdminUser();
-  const recipient = {
+  const recipient: IRecipient = {
     name: 'Jhon Doe',
     street: 'St. Hollywood',
     number: 7,
@@ -32,7 +33,7 @@ describe('Recipients', () => {
     return token;
   };
 
-  const getRecipientResponse = async () => {
+  const getRecipientResponse = async <T extends IRecipient>(recipient: T) => {
     const token = await getAuthenticationToken();
     const response = await request(app)
       .post('/recipients')
@@ -42,14 +43,14 @@ describe('Recipients', () => {
   };
 
   it('should be able to register a recipient', async () => {
-    const response = await getRecipientResponse();
+    const response = await getRecipientResponse(recipient);
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('id');
   });
 
   it('should be able to update the recipient', async () => {
-    const { body: recipientToUpdate } = await getRecipientResponse();
+    const { body: recipientToUpdate } = await getRecipientResponse(recipient);
     const newRecipient = {
       name: 'Glen Clark',
       street: 'Marsh Dr. Shirley',
@@ -89,14 +90,65 @@ describe('Recipients', () => {
   });
 
   it('is not possible to update recipients unauthenticated', async () => {
-    const { body: recipientToUpdate } = await getRecipientResponse();
-
+    const { body: recipientToUpdate } = await getRecipientResponse(recipient);
     const response = await request(app)
       .put(`/recipients/${recipientToUpdate.id}`)
       .send({
         ...recipientToUpdate,
         name: 'Trying to update',
       });
+
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty(
+      'message',
+      Errors.UNAUTHORIZED_REQUEST
+    );
+  });
+
+  it('is not possible to add a recipient with missing fields', async () => {
+    const response = await getRecipientResponse<any>({
+      ...recipient,
+      name: undefined,
+      state: '',
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+    expect(response.body).toHaveProperty('errors');
+  });
+
+  it('is not possible to update a recipient with invalid fields', async () => {
+    const { body: recipientToUpdate } = await getRecipientResponse(recipient);
+    const token = await getAuthenticationToken();
+    const response = await request(app)
+      .put(`/recipients/${recipientToUpdate.id}`)
+      .send({
+        ...recipientToUpdate,
+        name: '',
+        zip_code: '123',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+    expect(response.body).toHaveProperty('errors');
+  });
+
+  it('should be able to delete a recipient', async () => {
+    const { body: recipientToDelete } = await getRecipientResponse(recipient);
+    const token = await getAuthenticationToken();
+    const response = await request(app)
+      .delete(`/recipients/${recipientToDelete.id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(204);
+  });
+
+  it('is not possible to delete a recipient unauthenticated', async () => {
+    const { body: recipientToDelete } = await getRecipientResponse(recipient);
+    const response = await request(app).delete(
+      `/recipients/${recipientToDelete.id}`
+    );
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty(
