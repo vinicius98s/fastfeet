@@ -41,7 +41,7 @@ describe('Authentication', () => {
     );
   });
 
-  it('should not receive a token with invalid credentials', async () => {
+  it('should not receive a token with non exitent user', async () => {
     const response = await request(app)
       .post('/session')
       .send({
@@ -49,7 +49,7 @@ describe('Authentication', () => {
         password: '123',
       });
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(404);
     expect(response.body).toHaveProperty('message', Errors.USER_NOT_FOUND);
   });
 });

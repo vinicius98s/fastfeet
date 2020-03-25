@@ -12,8 +12,8 @@ module.exports = {
         name: { allowNull: false, type: Sequelize.STRING },
         email: { allowNull: false, type: Sequelize.STRING, unique: true },
         password_hash: { allowNull: false, type: Sequelize.STRING },
-        createdAt: { type: Sequelize.DATE, field: 'created_at' },
-        updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
+        created_at: { type: Sequelize.DATE, field: 'created_at' },
+        updated_at: { type: Sequelize.DATE, field: 'updated_at' },
       },
       {
         timestamps: true,

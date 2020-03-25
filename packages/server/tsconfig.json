@@ -15,6 +15,7 @@
     "paths": {
       "@models/*": ["app/models/*"],
       "@controllers/*": ["app/controllers/*"],
+      "@middlewares/*": ["app/middlewares/*"],
       "@types": ["app/types"],
       "@config/*": ["config/*"],
       "@database/*": ["database/*"],

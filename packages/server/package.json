@@ -6,15 +6,14 @@
   "scripts": {
     "serve": "node ./dist/server.js",
     "dev:docker": "docker-compose -f docker-compose.dev.yml up",
-    "dev": "nodemon src/server.ts",
+    "dev": "ts-node-dev --no-notify -r tsconfig-paths/register src/server.ts",
     "build": "babel src --out-dir dist --extensions .ts,.js",
     "db:create": "sequelize db:create",
     "db:migrate": "sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",
     "db:up": "yarn db:create && yarn db:migrate && yarn db:seed",
-    "test": "NODE_ENV=test sequelize db:migrate && jest --runInBand ; yarn clear:testdb",
-    "test:watch": "NODE_ENV=test sequelize db:migrate && jest --runInBand --watch ; yarn clear:testdb",
-    "clear:testdb": "NODE_ENV=test sequelize db:migrate:undo:all"
+    "test": "NODE_ENV=test jest --runInBand",
+    "test:watch": "NODE_ENV=test jest --runInBand --watch"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -50,12 +49,12 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
-    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2",
     "ts-jest": "^25.2.1",
-    "ts-node": "^8.7.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.8.3"
   }
 }
