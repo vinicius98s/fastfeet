@@ -20,6 +20,7 @@
           "@models": "./src/app/models",
           "@controllers": "./src/app/controllers",
           "@middlewares": "./src/app/middlewares",
+          "@utils": "./src/app/utils",
           "@types": "./src/app/types",
           "@config": "./src/config",
           "@database": "./src/database",

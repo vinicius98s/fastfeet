@@ -4,29 +4,7 @@ import * as yup from 'yup';
 import { RecipientsErrors } from '@types';
 import Recipient, { IRecipient } from '@models/Recipient';
 
-import formatYupErrors from '../utils/formatYupErrors';
-
-const validateRecipientData = async (
-  schema: yup.ObjectSchema,
-  data: any
-): Promise<void | {
-  message: string;
-  errors: {
-    path: string;
-    message: string;
-  }[];
-}> => {
-  try {
-    await schema.validate(data, { abortEarly: false });
-  } catch (e) {
-    const errors = e instanceof yup.ValidationError ? formatYupErrors(e) : [];
-
-    return {
-      message: 'Error validating recipient',
-      errors,
-    };
-  }
-};
+import validateData from '../utils/validateData';
 
 const store = async (req: Request, res: Response): Promise<Response> => {
   const storeRecipientSchema = yup.object().shape({
@@ -44,10 +22,7 @@ const store = async (req: Request, res: Response): Promise<Response> => {
 
   const recipient = req.body as IRecipient;
 
-  const validationErrors = await validateRecipientData(
-    storeRecipientSchema,
-    recipient
-  );
+  const validationErrors = await validateData(storeRecipientSchema, recipient);
 
   if (validationErrors) return res.status(400).json(validationErrors);
 
@@ -72,7 +47,7 @@ const update = async (req: Request, res: Response): Promise<Response> => {
   if (recipient) {
     const updateRecipient = req.body;
 
-    const validationErrors = await validateRecipientData(
+    const validationErrors = await validateData(
       updateRecipientSchema,
       updateRecipient
     );

@@ -7,6 +7,7 @@ module.exports = {
     '@models/(.*)': '<rootDir>/src/app/models/$1',
     '@controllers/(.*)': '<rootDir>/src/app/controllers/$1',
     '@middlewares/(.*)': '<rootDir>/src/app/middlewares/$1',
+    '@utils/(.*)': '<rootDir>/src/app/utils/$1',
     '@config/(.*)': '<rootDir>/src/config/$1',
     '@tests/(.*)': '<rootDir>/src/__tests__/$1',
     '@database': '<rootDir>/src/database/index.ts',

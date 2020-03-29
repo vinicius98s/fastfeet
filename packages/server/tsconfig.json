@@ -16,6 +16,7 @@
       "@models/*": ["app/models/*"],
       "@controllers/*": ["app/controllers/*"],
       "@middlewares/*": ["app/middlewares/*"],
+      "@utils/*": ["app/utils/*"],
       "@types": ["app/types"],
       "@config/*": ["config/*"],
       "@database/*": ["database/*"],

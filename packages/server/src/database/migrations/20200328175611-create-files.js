@@ -1,7 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
-      'users',
+      'files',
       {
         id: {
           allowNull: false,
@@ -10,8 +10,7 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         name: { allowNull: false, type: Sequelize.STRING },
-        email: { allowNull: false, type: Sequelize.STRING, unique: true },
-        password_hash: { allowNull: false, type: Sequelize.STRING },
+        path: { allowNull: false, type: Sequelize.STRING, unique: true },
         created_at: { type: Sequelize.DATE, field: 'created_at' },
         updated_at: { type: Sequelize.DATE, field: 'updated_at' },
       },
@@ -20,7 +19,8 @@ module.exports = {
       }
     );
   },
+
   down: queryInterface => {
-    return queryInterface.dropTable('users');
+    return queryInterface.dropTable('files');
   },
 };
