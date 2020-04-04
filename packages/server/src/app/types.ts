@@ -6,9 +6,10 @@ export enum Errors {
   UNAUTHORIZED_REQUEST = 'You must sign in to complete this request',
   MISSING_TOKEN = 'Your token must be provided',
   INVALID_TOKEN = 'Invalid token provided',
+  SERVER_ERROR = 'Internal server error',
 }
 
-export enum RecipientsErrors {
+export enum RecipientErrors {
   REQUIRED_NAME = 'The recipient name must be provided',
   SHORT_NAME = 'The recipient name is too short',
   INVALID_STREET = 'The street is not valid',
@@ -21,4 +22,16 @@ export enum RecipientsErrors {
   INVALID_STATE = 'The state is not valid',
   REQUIRED_STATE = 'The recipient state must be provided',
   RECIPIENT_NOT_FOUD = 'The recipient was not found',
+}
+
+export enum DeliverymanErrors {
+  REQUIRED_NAME = 'Deliveryman name is required',
+  REGISTERED = 'Deliveryman already registered',
+  NOT_FOUND = 'Deliveryman not found',
+}
+
+export enum OrderErrors {
+  INVALID_HOUR = 'Invalid hour registered',
+  REQUIRED_PRODUCT = 'Product name is required',
+  NOT_FOUND = 'Order not found',
 }

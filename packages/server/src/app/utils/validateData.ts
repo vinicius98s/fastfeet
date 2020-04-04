@@ -18,7 +18,7 @@ export default async function validateRecipientData(
     const errors = e instanceof yup.ValidationError ? formatYupErrors(e) : [];
 
     return {
-      message: 'Error validating recipient',
+      message: 'Error validating data',
       errors,
     };
   }

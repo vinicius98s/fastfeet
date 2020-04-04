@@ -6,10 +6,14 @@ import authenticatedRequest from '@tests/helpers/authenticatedRequest';
 
 describe('Deliveryman', () => {
   it('can list all deliverymen', async () => {
-    await Deliveryman.create({
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-    });
+    await Promise.all(
+      new Array(10).fill(null).map(() =>
+        Deliveryman.create({
+          name: faker.name.findName(),
+          email: faker.internet.email(),
+        })
+      )
+    );
 
     const response = await authenticatedRequest({
       method: 'get',
@@ -17,7 +21,7 @@ describe('Deliveryman', () => {
     });
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(10);
   });
 
   it('should be able to add a deliveryman', async () => {
@@ -62,16 +66,17 @@ describe('Deliveryman', () => {
       email,
     });
 
+    const newName = 'Junior';
     const response = await authenticatedRequest({
       method: 'put',
       data: {
-        name: 'Testing',
+        name: newName,
       },
       path: `/deliverymen/${deliveryman.id}`,
     });
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('name', 'Testing');
+    expect(response.body).toHaveProperty('name', newName);
   });
 
   it('should be able to remove a deliveryman', async () => {
