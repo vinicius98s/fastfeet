@@ -1,5 +1,5 @@
 export enum Errors {
-  USER_NOT_FOUND = 'User not found',
+  USER_NOT_FOUND = 'This email is not registered',
   GENERIC_ERROR = 'Something went wrong',
   MISSING_CREDENTIALS = 'You must provide all your credentials',
   INCORRECT_CREDENTIALS = 'Your password is not correct',

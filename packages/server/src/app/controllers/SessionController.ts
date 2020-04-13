@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
 import User from '@models/User';
@@ -9,6 +9,7 @@ export interface EncondedTokenInfo {
   user: {
     id: string;
     email: string;
+    name: string;
   };
   token: string;
 }
@@ -16,6 +17,7 @@ export interface EncondedTokenInfo {
 const store = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, password } = req.body;
+
     if (!email && !password)
       return res.status(400).json({ message: Errors.MISSING_CREDENTIALS });
 
@@ -24,13 +26,14 @@ const store = async (req: Request, res: Response): Promise<Response> => {
 
     const isCorrectPassword = await user.checkPassword(password);
     if (isCorrectPassword) {
-      const { id, email } = user;
+      const { id, email, name } = user;
       return res.json({
         user: {
           id,
           email,
+          name,
         },
-        token: jwt.sign({ id }, secret, {
+        token: jwt.sign({ id, email, name }, secret, {
           expiresIn: expiresIn,
         }),
       });
@@ -43,6 +46,25 @@ const store = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
+const validate = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const [, token] = authorization.split(' ');
+      const decoded = jwt.decode(token);
+      if (!decoded) {
+        return res.status(401).json({ message: Errors.INVALID_TOKEN });
+      }
+      return res.json({ payload: decoded });
+    } else {
+      return res.status(401).json({ message: Errors.MISSING_TOKEN });
+    }
+  } catch (e) {
+    return res.json({ message: Errors.GENERIC_ERROR });
+  }
+};
+
 export default {
   store,
+  validate,
 };
